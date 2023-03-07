@@ -11,7 +11,7 @@ let winner
 const players = {
   0: 'white',
   1: 'player1',
-  '-1': 'playuer2'
+  '-1': 'player2'
 }
 
 // Event listeners
@@ -23,7 +23,8 @@ init()
 
 function init() {
   board = [
-    [0, 0, 0, 0, 0][(0, 0, 0, 0, 0)] //0 //1
+    [0, 0, 0, 0, 0],//0
+    [0, 0, 0, 0, 0] //1
   ]
   turn = 1
   winner = null
@@ -31,7 +32,7 @@ function init() {
 }
 
 function render() {
-  renderBoard()
+  renderBoard(board)
   renderMessage()
 }
 
@@ -40,9 +41,9 @@ document.querySelectorAll('#board').forEach(function (board) {
   board.addEventListener('click', function () {
     this.querySelector('.cardFaces').classList.toggle('flipped')
   })
-})
+});
 
-;[...faceCard].forEach((cardArr) => {
+  [...faceCard].forEach((cardArr) => {
   cardArr.addEventListener('click', function () {
     cardArr.classList.toggle('is-flipped')
   })
@@ -57,19 +58,23 @@ function flipCard() {
   flipCardFront()
 }
 
-function renderBoard() {
+function renderBoard(board) {
   board.forEach(function (pArr, pIdx) {
     if (Array.isArray(pArr)) {
       pArr.forEach(function(Arr, idx) {
         const squareId = `${pIdx}${idx}`
         const squareEl = document.getElementById(squareId)
-        const cardImg = document.createElement('img')
-        cardImg.src = 'card_back.png'
-        squareEl.appendChild(cardImg)
+        if (squareEl) { 
+          const cardImg = document.createElement('img')
+          cardImg.src = 'card_back.png'
+          squareEl.appendChild(cardImg)
+        }
       })
     }
   })
 }
+
+
 
 
 
@@ -84,3 +89,4 @@ function renderMessage() {
     messageEl.innerHTML = `<span style="color: ${currentPlayer};">${currentPlayer.toUpperCase()}</span>'s Turn...`
   }
 }
+
