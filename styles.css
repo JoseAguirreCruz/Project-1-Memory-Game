@@ -10,3 +10,12 @@ html {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+header {
+  background-color: #0077C2;
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+}
