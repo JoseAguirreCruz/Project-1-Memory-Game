@@ -36,7 +36,8 @@ const cards = [
     name: "sql",
     img: "sql.png",
     id: 5
-  }
+  },
+  shuffleCards()
 ]
 
 let board
@@ -67,10 +68,29 @@ function render() {
 }
 
 // const shuffleCards = board.sort((Arr, idx) => Math.random() - 0.5)
-function shuffleCards(array) {
-  return array.sort(() => Math.random() - 0.5);
+function flipCard() {
+  setTimeout(function () {
+    if (squaresElF) {
+      squaresElF.classList.remove('squareF')
+      squaresElF.classList.remove('squareB')
+    }
+  }, 3000)
+  flipCardFront()
 }
-const shuffledArray = shuffleCards(cards);
+
+function shuffleCards(array) {
+  let currentIndex = array.length;
+  let temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
+
 
 
 document.querySelectorAll('#board').forEach(function (board) {
@@ -89,6 +109,8 @@ document.querySelectorAll('#board').forEach(function (board) {
 function flipCard(cardEl) {
   cardEl.classList.toggle('flipped');
 }
+
+const shuffledCards = shuffleCards(cards);
 
 function renderBoard(board) {
   const cardImages = ['card_back.png', 'java.png', 'c#.png', 'python.png', 'js.png', 'sql.png']
