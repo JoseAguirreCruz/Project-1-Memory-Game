@@ -4,9 +4,6 @@ const squaresElB = Array.from(document.getElementsByClassName('squareB'))
 const messageEl = document.querySelector('h1')
 const faceCard = Array.from(document.getElementsByClassName('cardFaces'))
 
-let board
-let turn
-let winner
 
 const players = {
   0: 'white',
@@ -14,12 +11,45 @@ const players = {
   '-1': 'player2'
 }
 
+const cards = [
+  {
+  name: "java",
+  img: "java.png",
+  id: 1,
+  },
+  {
+    name: "c#",
+    img: "c#.png",
+    id: 2,
+  },
+  {
+    name: "py",
+    img: "pything.png",
+    id: 3,
+  },
+  {
+    name: "js",
+    img: "js.png",
+    id: 4,
+  },
+  {
+    name: "sql",
+    img: "sql.png",
+    id: 5
+  }
+]
+
+let board
+let turn
+let winner
+let counter = cards.length + 5;
+
 // Event listeners
 //ex: someEl.addEventListener('click', handledrop)
 
 // functions
 
-init()
+init(cards)
 
 function init() {
   board = [
@@ -37,6 +67,12 @@ function render() {
 }
 
 // const shuffleCards = board.sort((Arr, idx) => Math.random() - 0.5)
+function shuffleCards(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+const shuffledArray = shuffleCards(cards);
+
+
 document.querySelectorAll('#board').forEach(function (board) {
   board.addEventListener('click', function () {
     this.querySelector('.cardFaces').classList.toggle('flipped')
@@ -50,12 +86,8 @@ document.querySelectorAll('#board').forEach(function (board) {
 })
 
 //flipCardBack
-function flipCard() {
-  setTimeout(function () {
-    squaresElF.classList.remove('squareF')
-    squaresElF.classList.remove('squareB')
-  }, 3000)
-  flipCardFront()
+function flipCard(cardEl) {
+  cardEl.classList.toggle('flipped');
 }
 
 function renderBoard(board) {
@@ -75,9 +107,6 @@ function renderBoard(board) {
     }
   })
 }
-
-
-
 
 
 function renderMessage() {
