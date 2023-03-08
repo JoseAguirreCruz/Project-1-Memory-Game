@@ -10,16 +10,18 @@ const cards = {
 
 const TIME_LIMIT = 60;
 
-const player = {
-
-}
-
 
 /*----- state variables -----*/
-
+let board
+let winner
+let time
 
 
 /*----- cached elements  -----*/
+const boardEl = document.getElementById('board')
+const sButton = document.getElementById('SButton')
+const rButton = document.getElementById('RButton')
+console.log(boardEl, sButton, rButton)
 
 
 /*----- event listeners -----*/
