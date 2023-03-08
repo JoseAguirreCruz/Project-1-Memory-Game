@@ -62,6 +62,28 @@ cardsEl.forEach(cardEl => {
   });
 });
 
+cardsEl.forEach(cardEl => {
+  cardEl.addEventListener("click", () => {
+    cardEl.classList.add("is-flipped");
+    if (!firstCard) {
+      firstCard = cardEl;
+    } else {
+      const firstCardName = firstCard.dataset.cardName;
+      const secondCardName = cardEl.dataset.cardName;
+      if (firstCardName === secondCardName) {
+        firstCard.remove();
+        cardEl.remove();
+      } else {
+        setTimeout(() => {
+          firstCard.classList.remove("is-flipped");
+          cardEl.classList.remove("is-flipped");
+        }, 1000);
+      }
+      firstCard = null;
+    }
+  });
+});
+
 function shuffleCards(array) {
   let currentIndex = array.length;
   let temporaryValue, randomIndex;
