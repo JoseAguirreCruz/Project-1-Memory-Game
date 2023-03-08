@@ -1,9 +1,10 @@
-const boardEl = document.getElementById('board')
-const squaresElF = Array.from(document.getElementsByClassName('squareF'))
-const squaresElB = Array.from(document.getElementsByClassName('squareB'))
+// const boardEl = document.getElementById('board')
+// const squaresElF = Array.from(document.getElementsByClassName('squareF'))
+// const squaresElB = Array.from(document.getElementsByClassName('squareB'))
 const messageEl = document.querySelector('h1')
-const faceCard = Array.from(document.getElementsByClassName('cardFaces'))
-
+// const faceCard = Array.from(document.getElementsByClassName('cardFaces'))
+const boardEl = document.getElementById("board");
+const cardsEl = Array.from(document.getElementsByClassName("card"));
 
 const players = {
   0: 'white',
@@ -13,17 +14,18 @@ const players = {
 
 const cards = [
   { name: "java", img: "java.png" },
-  { name: "c#", img: "c#.png" },
-  { name: "py", img: "pything.png" },
+  { name: "c#", img: "csharp.png" },
+  { name: "py", img: "python.png" },
   { name: "js", img: "js.png" },
   { name: "sql", img: "sql.png" }
 ];
 
-const shuffledCards = shuffleCards(cards);
+
 
 // let board
 // let turn
 // let winner
+let firstCard = null;
 
 // Event listeners
 //ex: someEl.addEventListener('click', handledrop)
@@ -48,14 +50,15 @@ function render() {
 }
 
 // const shuffleCards = board.sort((Arr, idx) => Math.random() - 0.5)
-function flipCard() {
-  setTimeout(function () {
-    squaresElF.forEach(function (squareEl) {
-      squareEl.classList.remove('squareF')
-      squareEl.classList.remove('squareB')
-    })
-  }, 3000)
-}
+// function flipCard() {
+//   setTimeout(function () {
+//     squaresElF.forEach(function (squareEl) {
+//       squareEl.classList.remove('squareF')
+//       squareEl.classList.remove('squareB')
+//     })
+//   }, 3000)
+// }
+
 
 function shuffleCards(array) {
   let currentIndex = array.length;
@@ -70,7 +73,20 @@ function shuffleCards(array) {
   return array;
 }
 
+const shuffledCards = shuffleCards(cards);
 
+shuffledCards.forEach(card => {
+  const cardEl = document.createElement("div");
+  cardEl.classList.add("card");
+  cardEl.dataset.cardName = card.name;
+  cardEl.innerHTML = `
+    <div class="card-face card-face-front"></div>
+    <div class="card-face card-face-back">
+      <img src="${card.img}">
+    </div>
+  `;
+  boardEl.appendChild(cardEl);
+});
 
 document.querySelectorAll('#board .cardFaces').forEach(function (cardEl) {
   cardEl.addEventListener('click', function () {
@@ -78,11 +94,11 @@ document.querySelectorAll('#board .cardFaces').forEach(function (cardEl) {
   })
 });
 
-  [...faceCard].forEach((cardArr) => {
-  cardArr.addEventListener('click', function () {
-    cardArr.classList.toggle('is-flipped')
-  })
-})
+//   [...faceCard].forEach((cardArr) => {
+//   cardArr.addEventListener('click', function () {
+//     cardArr.classList.toggle('is-flipped')
+//   })
+// })
 
 
 function renderBoard(board) {
