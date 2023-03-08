@@ -32,7 +32,7 @@ let firstCard = null;
 
 // functions
 
-init(cards)
+init()
 
 function init() {
   board = [
@@ -57,30 +57,8 @@ function flipCard(cardEl) {
 }
 
 cardsEl.forEach(cardEl => {
-  cardEl.addEventListener("click", () => {
+  cardEl.querySelector('.card-face-back').addEventListener("click", () => {
     flipCard(cardEl);
-  });
-});
-
-cardsEl.forEach(cardEl => {
-  cardEl.addEventListener("click", () => {
-    cardEl.classList.add("is-flipped");
-    if (!firstCard) {
-      firstCard = cardEl;
-    } else {
-      const firstCardName = firstCard.dataset.cardName;
-      const secondCardName = cardEl.dataset.cardName;
-      if (firstCardName === secondCardName) {
-        firstCard.remove();
-        cardEl.remove();
-      } else {
-        setTimeout(() => {
-          firstCard.classList.remove("is-flipped");
-          cardEl.classList.remove("is-flipped");
-        }, 1000);
-      }
-      firstCard = null;
-    }
   });
 });
 
@@ -112,7 +90,7 @@ shuffledCards.forEach(card => {
   boardEl.appendChild(cardEl);
 });
 
-document.querySelectorAll('#board .cardFaces').forEach(function (cardEl) {
+document.querySelectorAll('#board').forEach(function (cardEl) {
   cardEl.addEventListener('click', function () {
     flipCard(cardEl)
   })
@@ -133,9 +111,8 @@ function renderBoard(board) {
         const squareEl = document.getElementById(squareId)
         if (squareEl) { 
           const cardIndex = pArr[idx] * 2 + pIdx
-          const cardName = shuffledCards[cardIndex].name
           const cardFaceBackEl = squareEl.querySelector('.card-face-back')
-          cardFaceBackEl.style.backgroundImage = `url(${cards.img}.png)`
+          cardFaceBackEl.style.backgroundImage = `url(${shuffledCards[cardIndex].img})`
         }
       })
     }
