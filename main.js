@@ -12,38 +12,18 @@ const players = {
 }
 
 const cards = [
-  {
-  name: "java",
-  img: "java.png",
-  id: 1,
-  },
-  {
-    name: "c#",
-    img: "c#.png",
-    id: 2,
-  },
-  {
-    name: "py",
-    img: "pything.png",
-    id: 3,
-  },
-  {
-    name: "js",
-    img: "js.png",
-    id: 4,
-  },
-  {
-    name: "sql",
-    img: "sql.png",
-    id: 5
-  },
-]
+  { name: "java", img: "java.png" },
+  { name: "c#", img: "c#.png" },
+  { name: "py", img: "pything.png" },
+  { name: "js", img: "js.png" },
+  { name: "sql", img: "sql.png" }
+];
 
 const shuffledCards = shuffleCards(cards);
 
-let board
-let turn
-let winner
+// let board
+// let turn
+// let winner
 
 // Event listeners
 //ex: someEl.addEventListener('click', handledrop)
@@ -70,12 +50,11 @@ function render() {
 // const shuffleCards = board.sort((Arr, idx) => Math.random() - 0.5)
 function flipCard() {
   setTimeout(function () {
-    if (squaresElF) {
-      squaresElF.classList.remove('squareF')
-      squaresElF.classList.remove('squareB')
-    }
+    squaresElF.forEach(function (squareEl) {
+      squareEl.classList.remove('squareF')
+      squareEl.classList.remove('squareB')
+    })
   }, 3000)
-  flipCardFront()
 }
 
 function shuffleCards(array) {
@@ -105,11 +84,6 @@ document.querySelectorAll('#board .cardFaces').forEach(function (cardEl) {
   })
 })
 
-//flipCardBack
-function flipCard(cardEl) {
-  cardEl.classList.toggle('flipped');
-}
-
 
 function renderBoard(board) {
   board.forEach(function (pArr, pIdx) {
@@ -119,7 +93,7 @@ function renderBoard(board) {
         const squareEl = document.getElementById(squareId)
         if (squareEl) { 
           const cardImg = document.createElement('img')
-          const cardIndex = pIdx * 2 + idx
+          const cardIndex = pArr[idx] * 2 + pIdx
           cardImg.src = shuffledCards[cardIndex].img
           squareEl.appendChild(cardImg)
         }
