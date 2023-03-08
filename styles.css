@@ -7,8 +7,11 @@ html {
   width: 100px;
   height: 150px;
   background-image: url('card_back.png');
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 header {
@@ -18,4 +21,9 @@ header {
   font-weight: bold;
   padding: 20px;
   text-align: center;
+}
+.cardFaces {
+  height: 100%;
+  position: relative;
+  width: 100%;
 }
