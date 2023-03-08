@@ -49,16 +49,18 @@ function render() {
   renderMessage()
 }
 
-// const shuffleCards = board.sort((Arr, idx) => Math.random() - 0.5)
-// function flipCard() {
-//   setTimeout(function () {
-//     squaresElF.forEach(function (squareEl) {
-//       squareEl.classList.remove('squareF')
-//       squareEl.classList.remove('squareB')
-//     })
-//   }, 3000)
-// }
+function flipCard(cardEl) {
+  cardEl.classList.add('is-flipped');
+  setTimeout(() => {
+    cardEl.classList.remove('is-flipped');
+  }, 1000);
+}
 
+cardsEl.forEach(cardEl => {
+  cardEl.addEventListener("click", () => {
+    flipCard(cardEl);
+  });
+});
 
 function shuffleCards(array) {
   let currentIndex = array.length;
@@ -108,17 +110,15 @@ function renderBoard(board) {
         const squareId = `${pIdx}${idx}`
         const squareEl = document.getElementById(squareId)
         if (squareEl) { 
-          const cardImg = document.createElement('img')
           const cardIndex = pArr[idx] * 2 + pIdx
-          cardImg.src = shuffledCards[cardIndex].img
-          squareEl.appendChild(cardImg)
+          const cardName = shuffledCards[cardIndex].name
+          const cardFaceBackEl = squareEl.querySelector('.card-face-back')
+          cardFaceBackEl.style.backgroundImage = `url(${cards.img}.png)`
         }
       })
     }
   })
 }
-
-
 
 function renderMessage() {
   if (winner === 'T') {

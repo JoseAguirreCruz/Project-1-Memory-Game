@@ -73,3 +73,11 @@ h1 {
 .is-flipped {
   transform: rotateY(180deg);
 }
+
+.card-face-back {
+  display: none;
+}
+
+.is-flipped .card-face-back {
+  display: block;
+}
