@@ -37,13 +37,13 @@ const cards = [
     img: "sql.png",
     id: 5
   },
-  shuffleCards()
 ]
+
+const shuffledCards = shuffleCards(cards);
 
 let board
 let turn
 let winner
-let counter = cards.length + 5;
 
 // Event listeners
 //ex: someEl.addEventListener('click', handledrop)
@@ -93,9 +93,9 @@ function shuffleCards(array) {
 
 
 
-document.querySelectorAll('#board').forEach(function (board) {
-  board.addEventListener('click', function () {
-    this.querySelector('.cardFaces').classList.toggle('flipped')
+document.querySelectorAll('#board .cardFaces').forEach(function (cardEl) {
+  cardEl.addEventListener('click', function () {
+    flipCard(cardEl)
   })
 });
 
@@ -110,7 +110,6 @@ function flipCard(cardEl) {
   cardEl.classList.toggle('flipped');
 }
 
-const shuffledCards = shuffleCards(cards);
 
 function renderBoard(board) {
   board.forEach(function (pArr, pIdx) {
