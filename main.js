@@ -59,6 +59,7 @@ function flipCard() {
 }
 
 function renderBoard(board) {
+  const cardImages = ['card_back.png', 'java.png', 'c#.png', 'python.png', 'js.png', 'sql.png']
   board.forEach(function (pArr, pIdx) {
     if (Array.isArray(pArr)) {
       pArr.forEach(function(Arr, idx) {
@@ -66,7 +67,8 @@ function renderBoard(board) {
         const squareEl = document.getElementById(squareId)
         if (squareEl) { 
           const cardImg = document.createElement('img')
-          cardImg.src = 'card_back.png'
+          const cardIndex = pIdx * 2 + idx
+          cardImg.src = cardImages[cardIndex]
           squareEl.appendChild(cardImg)
         }
       })
