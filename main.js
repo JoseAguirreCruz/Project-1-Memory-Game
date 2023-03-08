@@ -113,7 +113,6 @@ function flipCard(cardEl) {
 const shuffledCards = shuffleCards(cards);
 
 function renderBoard(board) {
-  const cardImages = ['card_back.png', 'java.png', 'c#.png', 'python.png', 'js.png', 'sql.png']
   board.forEach(function (pArr, pIdx) {
     if (Array.isArray(pArr)) {
       pArr.forEach(function(Arr, idx) {
@@ -122,13 +121,14 @@ function renderBoard(board) {
         if (squareEl) { 
           const cardImg = document.createElement('img')
           const cardIndex = pIdx * 2 + idx
-          cardImg.src = cardImages[cardIndex]
+          cardImg.src = shuffledCards[cardIndex].img
           squareEl.appendChild(cardImg)
         }
       })
     }
   })
 }
+
 
 
 function renderMessage() {
