@@ -97,6 +97,7 @@ function renderBoard(board) {
 
 
 function addCardListeners() {
+
 }
 
 function startTimer() {
@@ -109,5 +110,16 @@ function startTimer() {
   }, 1000)
 }
 
+function endGame() {
+  clearInterval(timerInterval)
+  if(winner) {
+    alert('Congrats!!, you won!')
+  } else {
+    alert('Awww, loser!!')
+  }
+}
+
 const startGameBtn = document.getElementById('SButton');
-startGameBtn.addEventListener('click', init);
+startGameBtn.addEventListener('click');
+
+init()
