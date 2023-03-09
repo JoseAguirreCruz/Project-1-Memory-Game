@@ -39,5 +39,14 @@ const timerEl = document.getElementById('time')
 
 document.getElementById("SButton").addEventListener("click", () => {
   startTimer();
+  init();
 });
 /*----- functions -----*/
+
+function init() {
+  // Add your code here to initialize the game
+  // ...
+}
+
+const startGameBtn = document.getElementById('SButton');
+startGameBtn.addEventListener('click', init);
