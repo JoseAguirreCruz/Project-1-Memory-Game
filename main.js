@@ -67,8 +67,9 @@ function createBoard() {
 
 function shuffleCards(board) {
   board.forEach(row => {
+    let j;
     for (let i = row.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
+      j = Math.floor(Math.random() * (i + 1))
       [row[i], row[j]] = [row[j], row[i]]
     }
   })
@@ -85,7 +86,33 @@ function renderBoard(board) {
 
 
 function addCardListeners() {
-
+  const cards = document.querySelectorAll('.card')
+  let flippedCards = []
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      if (card.classList.contains('matched') || flippedCards.length === 2)
+      return;
+      card.classList.add('flipped')
+      flippedCards.push(card)
+      if (flippedCards.length === 2) {
+        const [card1, card2] = flippedCards
+        const isMatch = card1.dataset.symbol === card2.dataset.symbol
+        setTimeout(() => {
+          flippedCards.forEach(card => card.classList.remove('flipped'))
+          flippedCards = []
+        }, 1000)
+        if(isMatch) {
+          card1.classList.add('matched')
+          card2.classList.add('matched')
+          numPairsMatched++;
+          if(numPairsMatched === NUM_PAIRS) {
+            winner = true
+            endGame()
+          }
+        }
+      }
+    })
+  })
 }
 
 function startTimer() {
@@ -109,6 +136,8 @@ function endGame() {
 console.log(endGame)
 
 const startGameBtn = document.getElementById('SButton');
-startGameBtn.addEventListener('click');
+startGameBtn.addEventListener('click', function() {
+
+});
 
 init()
