@@ -1,12 +1,13 @@
 
 /*----- constants -----*/
 const cards = {
-  1: "csharp.png",
-  2: "java.png",
-  3: "js.png",
-  4: "python.png",
-  5: "sql.png"
-}
+  '🐶': 'csharp.png',
+  '🐱': 'java.png',
+  '🐻': 'js.png',
+  '🐰': 'python.png',
+  '🦊': 'sql.png'
+};
+
 
 const TIME_LIMIT = 60;
 let timeLeft = TIME_LIMIT;
