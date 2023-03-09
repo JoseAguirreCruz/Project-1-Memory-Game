@@ -39,13 +39,13 @@ const timerEl = document.getElementById('time')
 /*----- event listeners -----*/
 
 document.getElementById("SButton").addEventListener("click", () => {
-  init();
 });
 /*----- functions -----*/
 
 /////////////////////////////////////////////////////////
 
 function init() {
+
 const board = createBoard();
 shuffleCards(board);
 renderBoard(board);
