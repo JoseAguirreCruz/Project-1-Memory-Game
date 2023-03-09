@@ -45,34 +45,37 @@ document.getElementById("SButton").addEventListener("click", () => {
 /////////////////////////////////////////////////////////
 
 function init() {
- // Initialize the game board
 const board = createBoard();
-
- // Shuffle the cards on the board
 shuffleCards(board);
-
- // Render the board on the screen
 renderBoard(board);
-
- // Add click event listeners to the cards
 addCardListeners();
+startTimer();
 }
 
-function createBoard() {
 
+function createBoard() {
+  const rows = 2;
+  const cols = 5; 
+  const symbols = ['🐶', '🐱', '🐻', '🐰', '🦊', '🐸', '🐼', '🐨']; 
+  const board = [];
+  for (let row = 0; row < rows; row++) {
+    const rowArr = [];
+      for (let col = 0; col < cols; col++) {
+           const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+          rowArr.push(symbol);
+      }
+      board.push(rowArr);
+  }
+  return board;
+}
 
 function shuffleCards(board) {
-
 }
 
 function renderBoard(board) {
-
 }
 
 function addCardListeners() {
-
-}
-
 }
 
 const startGameBtn = document.getElementById('SButton');
