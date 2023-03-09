@@ -20,18 +20,6 @@ let numPairsMatched = 0;
 let winner = false;
 let time
 
-const startTimer = () => {
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    // Update the timer display
-    document.getElementById("time").textContent = timeLeft;
-    // Stop the timer when time is up
-    if (timeLeft === 0) {
-      clearInterval(timerInterval);
-      return
-    }
-  }, 1000);
-};
 /*----- cached elements  -----*/
 const boardEl = document.getElementById('board')
 const sButton = document.getElementById('SButton')
@@ -118,6 +106,7 @@ function endGame() {
     alert('Awww, loser!!')
   }
 }
+console.log(endGame)
 
 const startGameBtn = document.getElementById('SButton');
 startGameBtn.addEventListener('click');
