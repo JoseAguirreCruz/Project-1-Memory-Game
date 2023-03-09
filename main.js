@@ -9,6 +9,11 @@ const cards = {
 };
 
 
+const restartGameBtn = document.getElementById('RButton')
+restartGameBtn.addEventListener('click', function() {
+  restartGame()
+})
+
 const TIME_LIMIT = 60;
 const NUM_PAIRS = 5;
 let timeLeft = TIME_LIMIT;
