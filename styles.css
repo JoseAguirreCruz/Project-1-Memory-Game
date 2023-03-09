@@ -31,6 +31,7 @@ header h1 {
   border: 5px solid #333;
   border-radius: 10px;
   overflow: hidden;
+  margin-top: 2%;
 }
 
 .card {
@@ -46,4 +47,44 @@ header h1 {
   transition: background-color 0.3s ease;
 }
 
+.flipped {
+  background-color: #f7e9d3;
+}
 
+.matched {
+  background-color: #c2d0b3;
+  cursor: default;
+}
+
+#time {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#time h4 {
+  margin: 0;
+  margin-right: 10px;
+  font-weight: normal;
+}
+
+#GameButtons {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+#GameButtons button {
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#GameButtons button:hover {
+  background-color: #333;
+  color: #fff;
+}
