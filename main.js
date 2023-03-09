@@ -10,12 +10,14 @@ const cards = {
 
 
 const TIME_LIMIT = 60;
+const NUM_PAIRS = 5;
 let timeLeft = TIME_LIMIT;
 let timerInterval;
 
 /*----- state variables -----*/
 let board
-let winner
+let numPairsMatched = 0;
+let winner = false;
 let time
 
 const startTimer = () => {
@@ -45,7 +47,6 @@ document.getElementById("SButton").addEventListener("click", () => {
 /////////////////////////////////////////////////////////
 
 function init() {
-
 const board = createBoard();
 shuffleCards(board);
 renderBoard(board);
@@ -57,13 +58,19 @@ startTimer();
 function createBoard() {
   const rows = 2;
   const cols = 5; 
-  const symbols = ['🐶', '🐱', '🐻', '🐰', '🦊', '🐸', '🐼', '🐨']; 
+  const symbols = Object.keys(cards);
+  const pairs = [];
+  for (let i = 0; i < NUM_PAIRS; i++) {
+    const symbol = symbols[i];
+    pairs.push(symbol, symbol);
+  }
   const board = [];
   for (let row = 0; row < rows; row++) {
     const rowArr = [];
       for (let col = 0; col < cols; col++) {
-            const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-          rowArr.push(symbol);
+        const idx = Math.floor(Math.random() * pairs.length);
+        const symbol = pairs.splice(idx, 1)[0];
+        rowArr.push(symbol);
       }
       board.push(rowArr);
   }
@@ -71,18 +78,12 @@ function createBoard() {
 }
 
 function shuffleCards(board) {
-  const cards = board.flat();
-  for (let i = cards.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [cards[i], cards[j]] = [cards[j], cards[i]];
-  }
-  let idx = 0;
-  for (let row = 0; row < board.length; row++) {
-      for (let col = 0; col < board[row].length; col++) {
-          board[row][col] = cards[idx];
-          idx++;
-      }
-  }
+  board.forEach(row => {
+    for (let i = row.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      [row[i], row[j]] = [row[j], row[i]]
+    }
+  })
 }
 
 function renderBoard(board) {
@@ -96,6 +97,16 @@ function renderBoard(board) {
 
 
 function addCardListeners() {
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+  timeLeft--;
+  timerEl.textContent = timeLeft;
+  if (timeLeft === 0) {
+    endGame()
+    }
+  }, 1000)
 }
 
 const startGameBtn = document.getElementById('SButton');
