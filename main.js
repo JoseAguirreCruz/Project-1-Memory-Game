@@ -133,7 +133,7 @@ function startTimer() {
 function endGame() {
   clearInterval(timerInterval)
   if(winner) {
-    alert('Congrats!!, you won!')
+    alert('Congrats!!, You won!')
   } else {
     alert('Awww, loser!!')
   }
@@ -142,7 +142,19 @@ console.log(endGame)
 
 const startGameBtn = document.getElementById('SButton');
 startGameBtn.addEventListener('click', function() {
-
 });
+
+function restartGame() {
+  clearInterval(timerInterval)
+  timeLeft = TIME_LIMIT
+  numPairsMatched = 0
+  winner = false
+  time = 0
+  board = createBoard()
+  shuffleCards(board)
+  renderBoard(board)
+  addCardListeners()
+  startTimer()
+}
 
 init()
