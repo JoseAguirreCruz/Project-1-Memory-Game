@@ -38,14 +38,41 @@ const timerEl = document.getElementById('time')
 /*----- event listeners -----*/
 
 document.getElementById("SButton").addEventListener("click", () => {
-  startTimer();
   init();
 });
 /*----- functions -----*/
 
+/////////////////////////////////////////////////////////
+
 function init() {
-  // Add your code here to initialize the game
-  // ...
+ // Initialize the game board
+const board = createBoard();
+
+ // Shuffle the cards on the board
+shuffleCards(board);
+
+ // Render the board on the screen
+renderBoard(board);
+
+ // Add click event listeners to the cards
+addCardListeners();
+}
+
+function createBoard() {
+
+
+function shuffleCards(board) {
+
+}
+
+function renderBoard(board) {
+
+}
+
+function addCardListeners() {
+
+}
+
 }
 
 const startGameBtn = document.getElementById('SButton');
