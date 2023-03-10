@@ -1,11 +1,11 @@
 
 /*----- constants -----*/
 const cards = {
-  '🐶': 'csharp.png',
-  '🐱': 'java.png',
-  '🐻': 'js.png',
-  '🐰': 'python.png',
-  '🦊': 'sql.png'
+  one: 'csharp.png',
+  two: 'java.png',
+  three: 'js.png',
+  four: 'python.png',
+  five: 'sql.png'
 };
 
 
@@ -84,7 +84,10 @@ function renderBoard(board) {
   board.forEach((rowArr, rowIdx) => {
       rowArr.forEach((symbol, colIdx) => {
           const cardEl = document.getElementById(`c${colIdx}r${rowIdx}`);
-          cardEl.innerHTML = `<img src="${cards[symbol]}">`;
+          cardEl.innerHTML = ``;
+          cardEl.classList.remove('flipped', 'matched')
+          cardEl.dataset.symbol = symbol;
+          cardEl.style.backgroundColor = '#ccc'
       });
   });
 }
@@ -95,30 +98,51 @@ function addCardListeners() {
   let flippedCards = []
   cards.forEach(card => {
     card.addEventListener('click', () => {
-      if (card.classList.contains('matched') || flippedCards.length === 2)
+      if (card.classList.contains('matched') || flippedCards.length === 2){
       return;
+      }
+      card.style.backgroundColor = 'white'
       card.classList.add('flipped')
       flippedCards.push(card)
       if (flippedCards.length === 2) {
         const [card1, card2] = flippedCards
-        const isMatch = card1.dataset.symbol === card2.dataset.symbol
-        setTimeout(() => {
-          flippedCards.forEach(card => card.classList.remove('flipped'))
-          flippedCards = []
-        }, 1000)
-        if(isMatch) {
+        const symbol1 = card1.dataset.symbol
+        const symbol2 = card2.dataset.symbol
+        if (symbol1 === symbol2) {
           card1.classList.add('matched')
           card2.classList.add('matched')
-          numPairsMatched++;
-          if(numPairsMatched === NUM_PAIRS) {
+          numPairsMatched++
+          if (numPairsMatched === NUM_PAIRS) {
             winner = true
             endGame()
           }
+          flippedCards = []
+        } else {
+        setTimeout(() => {
+          flippedCards.forEach(card => {
+          card.style.backgroundColor = '#ccc'
+          card.classList.remove('flipped')
+          })
+          flippedCards = []
+        }, 1000)
+        // let isMatch = symbol1 === symbol2
+        // if(isMatch) {
+        //   card1.classList.add('matched')
+        //   card2.classList.add('matched')
+        //   numPairsMatched++;
+        //   if(numPairsMatched === NUM_PAIRS) {
+        //     winner = true
+        //     endGame()
+        const imgEl = document.createElement('img')
+        imgEl.src = cards[card.dataset.symbol]
+        // imgEl.classList.add('card-img')
+        card.appendChild(imgEl)
+            } 
+          }
         }
-      }
-    })
-  })
-}
+    )}
+    )}
+  
 
 function startTimer() {
   timerInterval = setInterval(() => {
