@@ -1,12 +1,13 @@
 
 /*----- constants -----*/
 const cards = {
-  one: 'csharp.png',
-  two: 'java.png',
-  three: 'js.png',
-  four: 'python.png',
-  five: 'sql.png'
+  one: '<img src="./img/csharp.png">',
+  two: '<img src="./img/java.png">',
+  three: '<img src="./img/js.png">',
+  four: '<img src="./img/python.png">',
+  five: '<img src="./img/sql.png">'
 };
+console.log(cards)
 
 
 const restartGameBtn = document.getElementById('RButton')
@@ -43,7 +44,8 @@ function init() {
 const board = createBoard();
 shuffleCards(board);
 renderBoard(board);
-addCardListeners();
+const cards = document.querySelectorAll('.card')
+addCardListeners(cards);
 startTimer();
 }
 
@@ -93,9 +95,9 @@ function renderBoard(board) {
 }
 
 
-function addCardListeners() {
-  const cards = document.querySelectorAll('.card')
+function addCardListeners(cards) {
   let flippedCards = []
+  let symbol;
   cards.forEach(card => {
     card.addEventListener('click', () => {
       if (card.classList.contains('matched') || flippedCards.length === 2){
@@ -125,23 +127,18 @@ function addCardListeners() {
           })
           flippedCards = []
         }, 1000)
-        // let isMatch = symbol1 === symbol2
-        // if(isMatch) {
-        //   card1.classList.add('matched')
-        //   card2.classList.add('matched')
-        //   numPairsMatched++;
-        //   if(numPairsMatched === NUM_PAIRS) {
-        //     winner = true
-        //     endGame()
-        const imgEl = document.createElement('img')
-        imgEl.src = cards[card.dataset.symbol]
+        symbol = symbol1 === symbol2 ? symbol1 : undefined
+        if (symbol) {
+        const imgEl = document.createElement('div')
+        imgEl.innerHTML = cards[symbol - 1].outerHTML;
         // imgEl.classList.add('card-img')
         card.appendChild(imgEl)
+              }
             } 
           }
         }
     )}
-    )}
+  )}
   
 
 function startTimer() {
@@ -177,7 +174,8 @@ function restartGame() {
   board = createBoard()
   shuffleCards(board)
   renderBoard(board)
-  addCardListeners()
+  const cards = document.querySelectorAll('.card')
+  addCardListeners(cards)
   startTimer()
 }
 
