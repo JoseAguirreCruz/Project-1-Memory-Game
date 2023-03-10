@@ -1,11 +1,11 @@
 
 /*----- constants -----*/
 const cards = {
-  one: '<img src="./img/csharp.png">',
-  two: '<img src="./img/java.png">',
-  three: '<img src="./img/js.png">',
-  four: '<img src="./img/python.png">',
-  five: '<img src="./img/sql.png">'
+  one: './img/csharp.png',
+  two: './img/java.png',
+  three: '<./img/js.png',
+  four: '<./img/python.png',
+  five: '<./img/sql.png'
 };
 console.log(cards)
 
@@ -25,6 +25,7 @@ let board
 let numPairsMatched = 0;
 let winner = false;
 let time
+let card1, card2, symbol1, symbol2;
 
 /*----- cached elements  -----*/
 const boardEl = document.getElementById('board')
@@ -41,11 +42,11 @@ document.getElementById("SButton").addEventListener("click", () => {
 /////////////////////////////////////////////////////////
 
 function init() {
-const board = createBoard();
+board = createBoard();
 shuffleCards(board);
 renderBoard(board);
 const cards = document.querySelectorAll('.card')
-addCardListeners(cards);
+addCardListeners(cards, cards);
 startTimer();
 }
 
@@ -99,7 +100,8 @@ function addCardListeners(cards) {
   let flippedCards = []
   let symbol;
   cards.forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (event) => {
+      // console.log('I am inside the event')
       if (card.classList.contains('matched') || flippedCards.length === 2){
       return;
       }
@@ -107,9 +109,10 @@ function addCardListeners(cards) {
       card.classList.add('flipped')
       flippedCards.push(card)
       if (flippedCards.length === 2) {
+        // this is where the issue starts
         const [card1, card2] = flippedCards
-        const symbol1 = card1.dataset.symbol
-        const symbol2 = card2.dataset.symbol
+        symbol1 = card1.dataset.symbol
+        symbol2 = card2.dataset.symbol
         if (symbol1 === symbol2) {
           card1.classList.add('matched')
           card2.classList.add('matched')
@@ -121,6 +124,7 @@ function addCardListeners(cards) {
           flippedCards = []
         } else {
         setTimeout(() => {
+          console.log(cards[symbol])
           flippedCards.forEach(card => {
           card.style.backgroundColor = '#ccc'
           card.classList.remove('flipped')
@@ -129,10 +133,12 @@ function addCardListeners(cards) {
         }, 1000)
         symbol = symbol1 === symbol2 ? symbol1 : undefined
         if (symbol) {
+        console.log('hello')
         const imgEl = document.createElement('div')
-        imgEl.innerHTML = cards[symbol - 1].outerHTML;
+        imgEl.innerHTML = cards[symbol]
         // imgEl.classList.add('card-img')
         card.appendChild(imgEl)
+        console.log('hello')
               }
             } 
           }
