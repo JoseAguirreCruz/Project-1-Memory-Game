@@ -2,9 +2,9 @@
 const cards = {
   one: './img/csharp.png',
   two: './img/java.png',
-  three: '<./img/js.png',
-  four: '<./img/python.png',
-  five: '<./img/sql.png'
+  three: './img/js.png',
+  four: './img/python.png',
+  five: './img/sql.png'
 };
 
 const restartGameBtn = document.getElementById('RButton')
@@ -126,11 +126,9 @@ function addCardListeners(cards) {
         }, 1000)
         symbol = symbol1 === symbol2 ? symbol1 : undefined
         if (symbol) {
-        console.log('hello')
-        const imgEl = document.createElement('div')
-        imgEl.innerHTML = cards[symbol]
+        const imgEl = document.createElement('img')
+        imgEl.src = cards[symbol]
         card.appendChild(imgEl)
-        console.log('hello')
               }
             } 
           }
@@ -157,7 +155,7 @@ function endGame() {
     alert('Awww, loser!!')
   }
 }
-console.log(endGame)
+
 
 const startGameBtn = document.getElementById('SButton');
 startGameBtn.addEventListener('click', function() {

@@ -7,6 +7,8 @@ EL MEMORY GAMEZ: A SIMPLE MEMORY GAME MADE WITH:
 
   ![El Memory Gamez Wireframe](https://cdn.discordapp.com/attachments/489903000966529024/1084593814859174058/wireframe.png)
 
+URL: https://joseaguirrecruz.github.io/Project-1-Memory-Game/
+
   Future: 
 
   -Much Better Styling!
