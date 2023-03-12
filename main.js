@@ -1,5 +1,4 @@
 
-/*----- constants -----*/
 const cards = {
   one: './img/csharp.png',
   two: './img/java.png',
@@ -7,8 +6,6 @@ const cards = {
   four: '<./img/python.png',
   five: '<./img/sql.png'
 };
-console.log(cards)
-
 
 const restartGameBtn = document.getElementById('RButton')
 restartGameBtn.addEventListener('click', function() {
@@ -19,27 +16,25 @@ const TIME_LIMIT = 60;
 const NUM_PAIRS = 5;
 let timeLeft = TIME_LIMIT;
 let timerInterval;
-
-/*----- state variables -----*/
 let board
 let numPairsMatched = 0;
 let winner = false;
 let time
 let card1, card2, symbol1, symbol2;
 
-/*----- cached elements  -----*/
+
 const boardEl = document.getElementById('board')
 const sButton = document.getElementById('SButton')
 const rButton = document.getElementById('RButton')
 const timerEl = document.getElementById('time')
 
-/*----- event listeners -----*/
+
 
 document.getElementById("SButton").addEventListener("click", () => {
 });
-/*----- functions -----*/
 
-/////////////////////////////////////////////////////////
+
+
 
 function init() {
 board = createBoard();
@@ -101,7 +96,6 @@ function addCardListeners(cards) {
   let symbol;
   cards.forEach(card => {
     card.addEventListener('click', (event) => {
-      // console.log('I am inside the event')
       if (card.classList.contains('matched') || flippedCards.length === 2){
       return;
       }
@@ -109,7 +103,6 @@ function addCardListeners(cards) {
       card.classList.add('flipped')
       flippedCards.push(card)
       if (flippedCards.length === 2) {
-        // this is where the issue starts
         const [card1, card2] = flippedCards
         symbol1 = card1.dataset.symbol
         symbol2 = card2.dataset.symbol
@@ -136,7 +129,6 @@ function addCardListeners(cards) {
         console.log('hello')
         const imgEl = document.createElement('div')
         imgEl.innerHTML = cards[symbol]
-        // imgEl.classList.add('card-img')
         card.appendChild(imgEl)
         console.log('hello')
               }
