@@ -1,26 +1,26 @@
-
-const cards = {
-  one: './img/csharp.png',
-  two: './img/java.png',
-  three: './img/js.png',
-  four: './img/python.png',
-  five: './img/sql.png'
-};
+const card_images = [
+  './img/csharp.png',
+  './img/java.png',
+  './img/js.png',
+  './img/python.png',
+  './img/sql.png'
+]
 
 const restartGameBtn = document.getElementById('RButton')
-restartGameBtn.addEventListener('click', function() {
+restartGameBtn.addEventListener('click', function () {
   restartGame()
 })
 
-const TIME_LIMIT = 60;
-const NUM_PAIRS = 5;
-let timeLeft = TIME_LIMIT;
-let timerInterval;
+const TIME_LIMIT = 60
+const NUM_PAIRS = 5
+let timeLeft = TIME_LIMIT
+let timerInterval
 let board
-let numPairsMatched = 0;
-let winner = false;
+let numPairsMatched = 0
+let winner = false
 let time
-let card1, card2, symbol1, symbol2;
+let card1, card2, symbol1, symbol2
+
 
 
 const boardEl = document.getElementById('board')
@@ -28,80 +28,80 @@ const sButton = document.getElementById('SButton')
 const rButton = document.getElementById('RButton')
 const timerEl = document.getElementById('time')
 
-
-
-document.getElementById("SButton").addEventListener("click", () => {
-});
-
-
-
+document.getElementById('SButton').addEventListener('click', () => {})
 
 function init() {
-board = createBoard();
-shuffleCards(board);
-renderBoard(board);
-const cards = document.querySelectorAll('.card')
-addCardListeners(cards, cards);
-startTimer();
+  board = createBoard()
+  shuffleCards(board)
+  renderBoard(board)
+  const cards = document.querySelectorAll('.card')
+  addCardListeners(cards, cards)
 }
 
-
 function createBoard() {
-  const rows = 2;
-  const cols = 5; 
-  const symbols = Object.keys(cards);
-  const pairs = [];
+  const rows = 2
+  const cols = 5
+  const symbols = Object.keys(card_images)
+  const pairs = []
   for (let i = 0; i < NUM_PAIRS; i++) {
-    const symbol = symbols[i];
-    pairs.push(symbol, symbol);
+    const symbol = symbols[i]
+    pairs.push(symbol, symbol)
   }
-  const board = [];
+  const board = []
   for (let row = 0; row < rows; row++) {
-    const rowArr = [];
-      for (let col = 0; col < cols; col++) {
-        const idx = Math.floor(Math.random() * pairs.length);
-        const symbol = pairs.splice(idx, 1)[0];
-        rowArr.push(symbol);
-      }
-      board.push(rowArr);
+    const rowArr = []
+    for (let col = 0; col < cols; col++) {
+      const idx = col
+      const symbol = idx
+      rowArr.push(symbol)
+    }
+    board.push(rowArr)
   }
-  return board;
+  return board
 }
 
 function shuffleCards(board) {
-  board.forEach(row => {
-    let j;
-    for (let i = row.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1))
-      [row[i], row[j]] = [row[j], row[i]]
-    }
+  board.forEach((rowArr, rowIdx) => {
+    rowArr.forEach((symbol, colIdx) => {
+      let tmp = board[rowIdx][colIdx]
+      let randRow = Math.floor(Math.random() * board.length)
+      let randCol = Math.floor(Math.random() * rowArr.length)
+      board[rowIdx][colIdx] = board[randRow][randCol]
+      board[randRow][randCol] = tmp
+    })
   })
 }
 
 function renderBoard(board) {
   board.forEach((rowArr, rowIdx) => {
-      rowArr.forEach((symbol, colIdx) => {
-          const cardEl = document.getElementById(`c${colIdx}r${rowIdx}`);
-          cardEl.innerHTML = ``;
-          cardEl.classList.remove('flipped', 'matched')
-          cardEl.dataset.symbol = symbol;
-          cardEl.style.backgroundColor = '#ccc'
-      });
-  });
+    rowArr.forEach((symbol, colIdx) => {
+      const cardEl = document.getElementById(`c${colIdx}r${rowIdx}`)
+      cardEl.innerHTML = ``
+      cardEl.classList.remove('flipped', 'matched')
+      cardEl.dataset.symbol = symbol
+      cardEl.style.backgroundColor = '#ccc'
+    })
+  })
 }
-
 
 function addCardListeners(cards) {
   let flippedCards = []
-  let symbol;
-  cards.forEach(card => {
+  let symbol
+  cards.forEach((card) => {
     card.addEventListener('click', (event) => {
-      if (card.classList.contains('matched') || flippedCards.length === 2){
-      return;
+      if (card.classList.contains('matched') || flippedCards.length === 2 || timeLeft === TIME_LIMIT) {
+        return
       }
-      card.style.backgroundColor = 'white'
-      card.classList.add('flipped')
-      flippedCards.push(card)
+      symbol = parseInt(card.dataset.symbol)
+      if (!card.classList.contains('flipped')) {
+        card.style.backgroundColor = 'white'
+        card.classList.add('flipped')
+        flippedCards.push(card)
+        const imgEl = document.createElement('img')
+        imgEl.id = card.id + '-img'
+        imgEl.src = card_images[symbol]
+        card.appendChild(imgEl)
+      }
       if (flippedCards.length === 2) {
         const [card1, card2] = flippedCards
         symbol1 = card1.dataset.symbol
@@ -116,50 +116,47 @@ function addCardListeners(cards) {
           }
           flippedCards = []
         } else {
-        setTimeout(() => {
-          console.log(cards[symbol])
-          flippedCards.forEach(card => {
-          card.style.backgroundColor = '#ccc'
-          card.classList.remove('flipped')
-          })
-          flippedCards = []
-        }, 1000)
-        symbol = symbol1 === symbol2 ? symbol1 : undefined
-        if (symbol) {
-        const imgEl = document.createElement('img')
-        imgEl.src = cards[symbol]
-        card.appendChild(imgEl)
-              }
-            } 
-          }
+          setTimeout(() => {
+            flippedCards.forEach((card) => {
+              card.style.backgroundColor = '#ccc'
+              card.classList.remove('flipped')
+              document.getElementById(card.id + '-img').remove()
+            })
+            flippedCards = []
+          }, 1000)
         }
-    )}
-  )}
-  
+      }
+    })
+  })
+}
 
 function startTimer() {
   timerInterval = setInterval(() => {
-  timeLeft--;
-  timerEl.textContent = timeLeft;
-  if (timeLeft === 0) {
-    endGame()
+    timeLeft--
+    timerEl.textContent = timeLeft
+    if (timeLeft === 0) {
+      endGame()
     }
   }, 1000)
 }
 
 function endGame() {
   clearInterval(timerInterval)
-  if(winner) {
+  if (winner) {
     alert('Congrats!!, You won!')
   } else {
     alert('Awww, loser!!')
   }
 }
 
-
-const startGameBtn = document.getElementById('SButton');
-startGameBtn.addEventListener('click', function() {
-});
+const startGameBtn = document.getElementById('SButton')
+startGameBtn.addEventListener('click', function () {
+  if (timeLeft === 0) {
+    alert('Time is up!')
+  } else {
+    startTimer()
+  }
+})
 
 function restartGame() {
   clearInterval(timerInterval)
