@@ -94,7 +94,7 @@ function addCardListeners(cards) {
       }
       symbol = parseInt(card.dataset.symbol)
       if (!card.classList.contains('flipped')) {
-        card.style.backgroundColor = 'white'
+        card.style.backgroundColor = 'grey'
         card.classList.add('flipped')
         flippedCards.push(card)
         const imgEl = document.createElement('img')
